@@ -1,0 +1,336 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "JJI Private Script",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "I'm sure you will enjoy using this!",
+   LoadingSubtitle = "AWP.GG and him ",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "JJI Script", -- Create a custom folder for your hub/game
+      FileName = "Jujutsu Script"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "eclipsex", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+--ГЛАВНОЕ
+local Tab = Window:CreateTab("Main", nil) -- Title, Image
+local Section = Tab:CreateSection("Main")
+
+local selectedSpeed = 16 -- Начальное значение скорости
+
+
+ local Slider = Tab:CreateSlider({
+    Name = "WalkSpeed Slider",
+    Range = {1, 350},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = selectedSpeed,
+    Flag = "sliderws",
+    Callback = function(Value)
+         selectedSpeed = Value
+         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = selectedSpeed
+    end,
+ })
+
+ local selectedJump = 50 -- Начальное значение jump
+ local Slider = Tab:CreateSlider({
+    Name = "JumpPower Slider",
+    Range = {1, 350},
+    Increment = 1,
+    Suffix = "JumpPower",
+    CurrentValue = selectedJump,
+    Flag = "sliderjp",
+    Callback = function(Value)
+        selectedJump = Value
+         game.Players.LocalPlayer.Character.Humanoid.JumpPower = selectedJump
+    end,
+ })
+
+
+local Input = Tab:CreateInput({
+   Name = "Walkspeed",
+   PlaceholderText = "1-500",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Reset Speed",
+   Callback = function()
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (24)
+   end,
+})
+
+
+local Toggle = Tab:CreateToggle({
+    Name = "Loop WalkSpeed",
+    CurrentValue = false,
+    Flag = "toggle4",
+    Callback = function(CurrentValue)
+       if CurrentValue then
+          -- Start the loop
+          _G.loop4 = true
+          while _G.loop4 do
+             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = selectedSpeed
+             wait(0.1) -- Adjust the wait time as needed
+          end
+       else
+          -- Stop the loop
+          _G.loop4 = false
+       end
+    end,
+ })
+
+ local Toggle = Tab:CreateToggle({
+    Name = "Loop JumpPower",
+    CurrentValue = false,
+    Flag = "togglej",
+    Callback = function(CurrentValue)
+       if CurrentValue then
+          -- Start the loop
+          _G.loopj = true
+          while _G.loopj do
+             game.Players.LocalPlayer.Character.Humanoid.JumpPower = selectedJump
+             wait(0.1) -- Adjust the wait time as needed
+          end
+       else
+          -- Stop the loop
+          _G.loopj = false
+       end
+    end,
+ })
+
+
+local Section = Tab:CreateSection("Universal Scripts")
+
+local Button = Tab:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Dex",
+   Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/MassiveHubs/loadstring/refs/heads/main/DexXenoAndRezware'))()
+   end,
+})
+
+
+
+--НЕТ КД НЕТ УНОБ И ТД
+local Tab = Window:CreateTab("Exploits", nil) -- Title, Image
+
+local Section = Tab:CreateSection("Exploits")
+
+local Button = Tab:CreateButton({
+   Name = "No CD",
+   Callback = function()
+   local replicatedStorage = game:GetService("ReplicatedStorage")
+local skillsFolder = replicatedStorage:WaitForChild("Skills")
+for _, skillFolder in ipairs(skillsFolder:GetChildren()) do
+    if skillFolder:IsA("Folder") then
+       local cooldownValue = skillFolder:FindFirstChild("Cooldown")
+        if cooldownValue and cooldownValue:IsA("NumberValue") then
+            cooldownValue.Value = 0.1
+        end
+    end
+end
+   end
+})
+
+local Button = Tab:CreateButton({
+   Name = "Make Everything Usable (Recommended)",
+   Callback = function()
+   local replicatedStorage = game:GetService("ReplicatedStorage")
+local skillsFolder = replicatedStorage:WaitForChild("Skills")
+for _, skillFolder in ipairs(skillsFolder:GetChildren()) do
+    if skillFolder:IsA("Folder") then
+            local unobtainableValue = skillFolder:FindFirstChild("Unobtainable")
+        if unobtainableValue and unobtainableValue:IsA("BoolValue") then
+            unobtainableValue.Value = false
+        end
+    end
+end
+   end
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "Inf Mastery For Toji (Recommended with the Toji moveset)",
+   Callback = function()
+       while wait() do
+    game:GetService("Players").LocalPlayer.ReplicatedData.masteries["Heavenly Restriction"].level.Value = 9999
+    wait(0.2)
+    end
+   end
+})
+
+
+
+local Section = Tab:CreateSection("Gamepasses (BETA)")
+
+local Button = Tab:CreateButton({
+   Name = "Fast Innate Rolls",
+   Callback = function()
+      local player = game:GetService("Players").LocalPlayer
+    local gamepasses = player.ReplicatedData:FindFirstChild("gamepasses") or Instance.new("Folder", player.ReplicatedData)
+    gamepasses.Name = "gamepasses"
+    local boolValue = Instance.new("BoolValue")
+    boolValue.Name = "259500454"
+    boolValue.Parent = gamepasses
+    local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    local textLabel = Instance.new("TextLabel", screenGui)
+    textLabel.Size = UDim2.new(0, 300, 0, 50)
+    textLabel.Position = UDim2.new(0.5, -500, 0.5, -25)
+    textLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.Text = "Fast Spins Gamepass was successfully activated."
+    textLabel.TextScaled = true
+    wait(3)
+screenGui:Destroy()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Heavenly Restriction",
+   Callback = function()
+      local player = game:GetService("Players").LocalPlayer
+    local gamepasses = player.ReplicatedData:FindFirstChild("gamepasses") or Instance.new("Folder", player.ReplicatedData)
+    gamepasses.Name = "gamepasses"
+    local boolValue = Instance.new("BoolValue")
+    boolValue.Name = "77102969"
+    boolValue.Parent = gamepasses
+    local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    local textLabel = Instance.new("TextLabel", screenGui)
+    textLabel.Size = UDim2.new(0, 300, 0, 50)
+    textLabel.Position = UDim2.new(0.5, -500, 0.5, -25)
+    textLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.Text = "You are now heavenly restricted."
+    textLabel.TextScaled = true
+    wait(3)
+screenGui:Destroy()
+   end,
+})
+
+
+
+--Мувсеты
+  local Tab = Window:CreateTab("Movesets", nil) -- Title, Image
+
+local Section = Tab:CreateSection("Special Grades")
+
+local Button = Tab:CreateButton({
+   Name = "Gojo (Infinity) (No Mugen)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Infinity: Lapse Blue"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Infinity: Reversal Red"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Infinity: Spatial Pummel"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Infinity: Red Transmission"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Infinity: Hollow Purple"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Unlimited Void"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Y.Value = "Maximum: Six Eyes"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Sukuna (Demon Vessel) (Spiderweb is a boss move)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Demon Vessel: Cleave"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Demon Vessel: Dismantle"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Demon Vessel: Flame Arrow"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Demon Vessel: Switch"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Demon Spiderweb"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Malevolent Shrine"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Y.Value = "Maximum: Heian Awakening"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Yuki (Star Rage) (No Oberon)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Star Rage: Asteroid"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Star Rage: Jupiter"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Star Rage: Mars"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Star Rage: Mercury"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Star Rage: Terra"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Celestial Opera"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Y.Value = "Maximum: Total Collapse"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Yuta (Curse Queen) (No Copy)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Curse Queen: Ghastly Fist"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Curse Queen: Demonic Toss"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Curse Queen: Neck Twister"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Curse Queen: Energy Blast"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Curse Queen: Conjuration"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Unequivocal Love"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Y.Value = "Maximum: Jacob's Ladder"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Mahito (Soul Manipulation) (No Flesh Drill And Distorted Inflation)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Soul Manipulation: Blade Rush"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Soul Manipulation: Deformed Fist"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Soul Manipulation: Soul Touch"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Soul Manipulation: Instant Spirit Body of Distorted Killing"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Soul Manipulation: Polymorphic Soul Isomer"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Self-Embodiment Of Perfection"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Hakari (Gambler Fever)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Gambler Fever: Closing Curtains"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Gambler Fever: Pachinko Rush"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Gambler Fever: Cargo Haul"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Gambler Fever: Rendezvous"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Gambler Fever: Slot Slam"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Domain Expansion: Idle Death Gamble"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Toji (Heavenly Restriction) (No Manic Barrage)",
+   Callback = function()
+   game:GetService("Players").LocalPlayer.ReplicatedData.heavenlyRestriction.Value = true
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Z.Value = "Face Grab"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.X.Value = "Blitz"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.C.Value = "Pavement Slam"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.V.Value = "Jutsushi Goroshi"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.B.Value = "Bloodlust"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.T.Value = "Super Senses"
+   game:GetService("Players").LocalPlayer.ReplicatedData.techniques.innates.Y.Value = "Shrapnel Barrage"
+   end
+})
